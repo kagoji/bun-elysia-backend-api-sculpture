@@ -1,16 +1,27 @@
 {
-  "name": "crick_11",
-  "version": "1.0.50",
+  "name": "play_quiz_api",
+  "version": "1.0.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch play-quiz-server.ts"
   },
   "dependencies": {
     "@elysiajs/swagger": "^1.1.1",
-    "elysia": "latest"
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dateformat": "^5.0.3",
+    "dotenv": "^16.4.5",
+    "elysia": "latest",
+    "express": "^4.21.0",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/dateformat": "^5.0.2",
+    "@types/express": "^4.17.21",
+    "@types/mysql": "^2.15.26",
     "bun-types": "latest"
   },
-  "module": "src/index.js"
+  "module": "play-quiz-server.ts"
 }
