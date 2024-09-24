@@ -12,7 +12,7 @@ class ResponseModules {
     // Create an error response object
     static errors(errorMessage: string, errorType: string | null = null): object {
         const error = {
-            status: false,
+            status: 500,
             errorType: errorType,
             message: errorMessage,
             serverReferenceCode: new Date().toLocaleString('en-BN', { timeZone: 'Asia/Dhaka' }).toString(),
@@ -24,7 +24,7 @@ class ResponseModules {
     // Create a success response object
     static success(successMessage: string, data: any[] = []): object {
         const success = {
-            status: true,
+            status: 200,
             message: successMessage,
             serverReferenceCode: new Date().toLocaleString('en-BN', { timeZone: 'Asia/Dhaka' }).toString(),
             data: data,
