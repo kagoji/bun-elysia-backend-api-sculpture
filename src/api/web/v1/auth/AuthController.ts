@@ -40,7 +40,7 @@ AuthController.group('/auth', (group) => {
 
             // Perform database query
             const data = await new Promise((resolve, reject) => {
-                db.query(QuizRepo.quizParticipateCheck(formattedMsisdn2), (err: Error | null, data: any) => {
+                db.query(QuizRepo.quizParticipateCheck(formattedMsisdn), (err: Error | null, data: any) => {
                     if (err) {
                         reject(err);
                     } else {
