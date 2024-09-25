@@ -1,2 +1,2 @@
 # bun-elysia-backend-api-sculpture
-Bun Js with Elysia Backend API sculputure
+Bun Js with Elysia & JWT Backend API sculputure
