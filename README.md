@@ -1,5 +1,5 @@
+# Bun Js with Elysia & JWT Backend API sculputure
 
-# Elysia with Bun runtime
 
 ## Getting Started
 To get started with this template, simply paste this command into your terminal:
@@ -14,6 +14,6 @@ bun run dev
 ```
 
 Open http://localhost:3000/ with your browser to see the result.
-=======
-# Bun Js with Elysia & JWT Backend API sculputure
+
+
 
