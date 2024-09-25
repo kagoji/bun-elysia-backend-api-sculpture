@@ -1,6 +1,6 @@
 import { Elysia, t, Context } from 'elysia';
 import dateFormat from 'dateformat';
-import LogLater from '../utitlity/loggar'; 
+import LogLater from '../utility/loggar'; 
 import AuthControllerV1 from '../api/web/v1/auth/AuthController'; // Ensure this controller is adapted for Elysia
 
 const app = new Elysia();
@@ -10,7 +10,7 @@ const app = new Elysia();
  */
 
 /*************** For version 1 WEB API *******************/
-
+app.get("/", () => `Welcome to Bun Elysia`)
 // Set routes for API version 1
 app.group("/api/web/v1", (group) => 
     group.use(AuthControllerV1) // Use the AuthController

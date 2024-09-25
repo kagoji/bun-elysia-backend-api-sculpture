@@ -8,6 +8,7 @@ interface Config{
     db_name: string;
     db_port: string;
     port: string;
+    jwt_secret: string;
 }
 
 const config: Config = {
@@ -17,6 +18,7 @@ const config: Config = {
     db_name : process.env.DB_DATABASE|| '',
     db_port : process.env.DB_PORT|| '',
     port    : process.env.APP_PORT|| '',
+    jwt_secret : process.env.JWT_SECRET|| '',
 };
 
 export default config;

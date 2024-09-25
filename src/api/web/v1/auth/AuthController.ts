@@ -1,40 +1,37 @@
 import { Elysia, Context } from 'elysia';
 import dateFormat from 'dateformat';
-import LogLater from '../../../../utitlity/loggar'; // Ensure the path to LogLater is correct
+import LogLater from '../../../../utility/loggar'; // Ensure the path to LogLater is correct
 import db from '../../../../database/dbConfig';
 import QuizRepo from '../../../../database/repositories/web/v1/QuziRepo';
-import responseModules from '../../../../utitlity/ResponseModules';
+import responseModules from '../../../../utility/ResponseModules';
+import { accessLogger } from '../../../../middleware/accessLogger';
+import { jwtGuard,authUser } from '../../../../middleware/jwtGuard';
+import { generateToken, verifyToken } from '../../../../middleware/jwt';
+
+
+/**
+ * AuthController
+ *
+ * @param  mixed msisdn,paritcipate_name,operator,paritcipate_email
+ * @return void
+ */
 
 const AuthController = new Elysia();
-
-// Helper function to determine the protocol (http/https)
-const getProtocol = (request: Request): string => {
-    // Safely retrieve the 'x-forwarded-proto' header if it exists, otherwise assume 'http'
-    return request.headers.get('x-forwarded-proto') || 'http';
-};
 
 // Define the /auth route group
 AuthController.group('/auth', (group) => {
 
-    // Define the /login route under /auth
+    //Acceslog Write
+    group.onBeforeHandle(accessLogger)
+
+    //Define the /login route under /auth
     group.get('/login', async ({ request, response }: Context) => {
-
-        // Log initialization
-        const asiaTime = new Date().toLocaleString('en-BN', { timeZone: 'Asia/Dhaka' });
-        const logDate: string = dateFormat(asiaTime, "yyyy-mm-dd");
-        const logfileAccess = new LogLater(`src/logs/access-log-${logDate}.log`);
-        const logfileError = new LogLater(`src/logs/error-log-${logDate}.log`);
-
+       
+        console.log('AuthController2');
         try {
             
-            // Determine protocol and construct full URL
-            const protocol = getProtocol(request);
-            const host = request.headers.get('host') || 'localhost';
-            const fullUrl: string = `${request.url}`;
 
-            // Log access details
-            logfileAccess.dateline(`${host} | ${fullUrl} | ${request.headers.get('user-agent')}`);
-
+            console.log('AuthController');
             // Example MSISDN
             const formattedMsisdn: string = "8801841288299";
 
@@ -50,22 +47,42 @@ AuthController.group('/auth', (group) => {
                 });
             });
 
+           
             // Log successful query
             console.log('Query executed successfully 2');
             // Return success response
-            return responseModules.success("Query check successfully");
+            return responseModules.success("Query check successfully",[{ accessToken: generateToken({ msisdn:formattedMsisdn }) }]);
 
         } catch (err: unknown) {
             // Handle unexpected errors
             const error = err as Error;
-            logfileError.dateline(`${request.headers.get('host')} | ${request.url} | ${error.message} | ${error.stack} | ${request.headers.get('user-agent')}`);
+            //logfileError.dateline(`${request.headers.get('host')} | ${request.url} | ${error.message} | ${error.stack} | ${request.headers.get('user-agent')}`);
             // Return error response
             return responseModules.errors(error.message);
         }
     });
 
+    //jwt token guard
+    group.onBeforeHandle(jwtGuard)
+    //authorize user data bind
+    group.derive(authUser)
+    group.get('/profile', async ({ request, response }: Context) => {
+        console.log('profile executed successfully 2');
+        const user = request?.user; //get authorize user data
+
+        if (user) {
+            return responseModules.success("authorized",[{user:user.msisdn}]); // Respond with user-specific information
+        }
+
+        return responseModules.errors("Unauthorized");
+    });  
+    
+    
+
     return group;
 });
+
+
 
 
 export default AuthController;

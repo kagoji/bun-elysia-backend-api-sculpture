@@ -1,5 +1,5 @@
 import mysql, { Pool, MysqlError, PoolConnection } from "mysql";
-import config from '../utitlity/config';
+import config from '../utility/config';
 
 // Create a MySQL connection pool
 const pool: Pool = mysql.createPool({

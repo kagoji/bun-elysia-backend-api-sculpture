@@ -1,5 +1,5 @@
 
-import config  from "./utitlity/config";
+import config  from "./utility/config";
 import app from './routes/app';
 
 // Create server
