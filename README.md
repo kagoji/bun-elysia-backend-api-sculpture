@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Elysia with Bun runtime
 
 ## Getting Started
@@ -13,3 +14,7 @@ bun run dev
 ```
 
 Open http://localhost:3000/ with your browser to see the result.
+=======
+# Bun Js with Elysia & JWT Backend API sculputure
+Bun Js with Elysia & JWT Backend API sculputure
+>>>>>>> c94eca8c6f10f7ccbb803feae422bb0fc9d2e8ac
